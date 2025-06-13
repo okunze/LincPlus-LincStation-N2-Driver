@@ -1,0 +1,19 @@
+#!/bin/bash
+# Start the Management Utility
+/usr/local/sbin/emhttp
+
+# Enable probe
+modprobe i2c-dev
+
+# Install PKG
+installpkg /boot/config/pkg/i2c-tools-4.1-x86_64-1_slonly.txz
+
+# Start the LED Service
+cp -r /boot/config/led/ /usr/local/sbin/led/
+chmod 777 /usr/local/sbin/led/led
+nohup /usr/local/sbin/led/led >/dev/null 2>&1 &
+
+# Start the RESET Service
+cp -r /boot/config/reset/ /usr/local/sbin/reset/
+chmod 777 /usr/local/sbin/reset/reset
+nohup /usr/local/sbin/reset/reset >/dev/null 2>&1 &
